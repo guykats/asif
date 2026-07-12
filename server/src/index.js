@@ -7,6 +7,9 @@ const cors = require('cors');
 const registerRouter = require('./routes/register');
 const adminRouter = require('./routes/admin');
 const assetsRouter = require('./routes/assets');
+const { ensureDefaultAdmin } = require('./ensureAdmin');
+
+ensureDefaultAdmin();
 
 const app = express();
 const PORT = process.env.PORT || 3000;

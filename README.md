@@ -37,11 +37,15 @@ npm run dev                 # רץ על פורט 5173, מפנה קריאות /ap
 ```bash
 cd client && npm install && npm run build     # יוצר client/dist
 cd ../server && npm install
-npm run seed-admin                            # פעם אחת, ליצירת/עדכון משתמש אדמין
 npm start                                     # מגיש גם את client/dist וגם את ה-API
 ```
 
 כברירת מחדל השרת רץ על הפורט שמוגדר במשתנה הסביבה `PORT` (ברירת מחדל 3000).
+
+בהפעלה הראשונה, אם אין עדיין אף משתמש אדמין ב-DB, השרת יוצר אחד אוטומטית לפי `ADMIN_USERNAME`/
+`ADMIN_PASSWORD` מה-`.env`. `npm run seed-admin` הוא כלי ידני נפרד לאיפוס סיסמה (למשל אם שכחתם
+אותה) - הוא **תמיד** דורס את הסיסמה לערך שב-`.env`, ולכן לא רץ אוטומטית בכל דיפלוי, כדי שלא
+יבטל בטעות סיסמה ששונתה מהדשבורד.
 
 ## משתני סביבה (server/.env)
 
@@ -52,14 +56,47 @@ ADMIN_USERNAME=admin
 ADMIN_PASSWORD=לשנות לסיסמה חזקה
 ```
 
-לאחר שינוי `ADMIN_USERNAME`/`ADMIN_PASSWORD` יש להריץ שוב `npm run seed-admin` כדי שהשינוי ייכנס
-לתוקף (אפשר גם פשוט להתחבר לדשבורד ולהחליף סיסמה דרך "הגדרות").
+## פריסה על Hostinger עם Git Deploy (hPanel) - השיטה המומלצת
 
-## פריסה על Hostinger
+זו השיטה שבה אתם משתמשים בפועל. ב-hPanel יש פיצ'ר Git (בדרך כלל תחת "מתקדם" › "Git") שמאפשר
+לחבר ריפו GitHub ולמשוך ממנו קוד אוטומטית או בלחיצת כפתור.
 
-לא היה ברור איזה סוג אירוח יש בחשבון ה-Hostinger, אז הנה הוראות לשני המקרים הנפוצים:
+1. **מיזגו קודם את ה-PR** (`claude/react-website-build-05bj6m` ← `main`) ב-GitHub, כדי שענף
+   `main` יכיל את כל הקוד.
+2. ב-hPanel, תחת הדומיין הרלוונטי, פותחים "Git" ומוסיפים:
+   - **Repository**: `https://github.com/guykats/asif.git`
+   - **Branch**: `main`
+   - **Directory**: תיקייה כלשהי בחשבון (לדוגמה `asif-app`) - לא חובה שתהיה `public_html`,
+     כי זו לא אתר סטטי אלא אפליקציית Node.
+3. עושים "Deploy" (או מפעילים Auto Deployment אם קיים) - זה מושך את כל תוכן הריפו (גם
+   `client/` וגם `server/`) לתיקייה שנבחרה.
+4. בתיקייה שנוצרה יש סקריפט `deploy.sh` בשורש הריפו שמבצע build לקליינט + התקנת תלויות בשרת.
+   אם ל-hPanel יש שדה "Deploy script"/"Post-deploy command" - הדביקו שם `bash deploy.sh`.
+   אם אין שדה כזה, מריצים אותו ידנית פעם אחת דרך ה-Terminal המובנה של hPanel:
+   ```bash
+   cd ~/<הנתיב-לתיקייה-שנבחרה>
+   bash deploy.sh
+   ```
+5. עדיין תחת "מתקדם", פותחים "Setup Node.js App" ומגדירים:
+   - **Application root**: התיקייה שבחרתם ב-Git ›  `server` (לדוגמה `asif-app/server`)
+   - **Application startup file**: `src/index.js`
+   - **Node.js version**: 20 ומעלה
+   - **Environment variables**: `JWT_SECRET` (מחרוזת אקראית ארוכה), `ADMIN_USERNAME`,
+     `ADMIN_PASSWORD`
+6. שומרים ולוחצים "Restart" על האפליקציה.
+7. מוודאים שהדומיין/תת-דומיין מצביע על אפליקציית ה-Node.js הזו (לא על תיקיית `public_html`
+   רגילה).
 
-### אופציה A: VPS / Cloud Hosting (יש גישת SSH)
+**בכל פעם שיש עדכון קוד** (push חדש ל-`main`): לוחצים "Deploy" שוב ב-Git tab (או מחכים
+ל-Auto Deployment אם מופעל), ואז מריצים שוב `bash deploy.sh` (ידנית או אוטומטית, תלוי אם
+hPanel תומך בהרצת סקריפט אחרי pull) - הסקריפט גם "מבקש" מהאפליקציה להתאתחל בסוף (touch
+ל-`tmp/restart.txt`, קונבנציה נפוצה לשרתי Passenger); אם זה לא מספיק, יש ללחוץ "Restart"
+ידנית ב-hPanel.
+
+> אם במהלך ההגדרה מתברר שממשק ה-hPanel שלכם נראה שונה ממה שמתואר כאן (Hostinger משנים
+> ממשקים לפעמים) - תארו לי מה אתם רואים ואמשיך להדריך בהתאם.
+
+### אלטרנטיבה: VPS / Cloud Hosting (יש גישת SSH)
 
 1. מתחברים ב-SSH לשרת.
 2. משכפלים את הריפו: `git clone <repo-url> asif && cd asif`
@@ -84,26 +121,6 @@ ADMIN_PASSWORD=לשנות לסיסמה חזקה
    ```
 7. מגדירים reverse proxy (Nginx, שכבר קיים כברירת מחדל ברוב שרתי Hostinger VPS) מהדומיין
    לפורט שהשרת מאזין לו (למשל 3000).
-
-### אופציה B: אירוח שיתופי (Shared/Business) עם תמיכת Node.js דרך hPanel
-
-ב-hPanel של Hostinger יש תחת "מתקדם" את "Setup Node.js App":
-
-1. מעלים את תוכן הריפו לתיקיית האתר (דרך Git deploy אם קיים, או FTP/File Manager).
-2. ב-hPanel, יוצרים אפליקציית Node.js חדשה:
-   - **Application root**: תיקיית `server/`
-   - **Application startup file**: `src/index.js`
-   - **Node.js version**: 20 ומעלה
-3. פותחים את ה"Terminal" המובנה של hPanel (או SSH אם זמין) ומריצים:
-   ```bash
-   cd ~/<נתיב-לאתר>/client && npm install && npm run build
-   cd ~/<נתיב-לאתר>/server && npm install
-   npm run seed-admin
-   ```
-4. במסך ניהול אפליקציית ה-Node.js, מגדירים משתני סביבה: `JWT_SECRET`, `ADMIN_USERNAME`,
-   `ADMIN_PASSWORD` (ואפשר גם `PORT` אם נדרש - לרוב hPanel קובע אותו אוטומטית).
-5. לוחצים "Restart" על האפליקציה.
-6. מוודאים שהדומיין/תת-דומיין מצביע על אפליקציית ה-Node.js הזו.
 
 > אם יתברר שבפועל יש רק אירוח PHP קלאסי בלי אפשרות Node.js, יהיה צורך לשדרג תוכנית או
 > לעבור ל-VPS - האתר הזה (React + Node + SQLite) לא ירוץ על אירוח PHP-בלבד.
