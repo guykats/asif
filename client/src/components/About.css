@@ -1,0 +1,58 @@
+.about {
+  background: var(--cream);
+}
+
+.about__heading {
+  font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+  margin-bottom: 24px;
+  max-width: 620px;
+}
+
+.about__paragraph {
+  max-width: 760px;
+  color: var(--brown-soft);
+  font-size: 1.05rem;
+  margin-bottom: 18px;
+}
+
+.about__facilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 40px 0;
+}
+
+.facility-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid rgba(63, 54, 38, 0.08);
+  color: var(--sage-dark);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-soft);
+}
+
+.about__climate {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--sage-pale);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  max-width: 760px;
+}
+
+.about__climate-icon {
+  color: var(--sage-dark);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.about__climate p {
+  color: var(--brown-ink);
+  font-size: 1rem;
+}

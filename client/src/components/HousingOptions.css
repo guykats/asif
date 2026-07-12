@@ -1,0 +1,78 @@
+.housing {
+  background: var(--cream);
+}
+
+.housing__heading {
+  font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+  margin-bottom: 12px;
+}
+
+.housing__intro {
+  color: var(--brown-soft);
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+.housing__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.housing-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 32px 26px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+}
+
+.housing-card--highlight {
+  border-color: var(--terracotta);
+  background: #fff9f2;
+}
+
+.housing-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--sage-pale);
+  color: var(--sage-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.housing-card--highlight .housing-card__icon {
+  background: #fbe4d1;
+  color: var(--terracotta-dark);
+}
+
+.housing-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.housing-card__body {
+  color: var(--brown-soft);
+  font-size: 0.95rem;
+  flex-grow: 1;
+  margin-bottom: 22px;
+}
+
+.housing-card__cta {
+  align-self: flex-start;
+  font-size: 0.9rem;
+  padding: 12px 22px;
+}
+
+@media (max-width: 900px) {
+  .housing__grid {
+    grid-template-columns: 1fr;
+  }
+}
