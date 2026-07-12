@@ -1,0 +1,117 @@
+.registration {
+  background: var(--brown-ink);
+  color: var(--white);
+}
+
+.registration__inner {
+  max-width: 720px;
+}
+
+.registration__heading {
+  font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.registration__intro {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 32px;
+}
+
+.registration__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.field input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 13px 16px;
+  color: var(--white);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.field input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--sage);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.field input[aria-invalid='true'] {
+  border-color: #e08a6f;
+}
+
+.field__error {
+  color: #f3ab8e;
+  font-size: 0.82rem;
+}
+
+.registration__server-error {
+  color: #f3ab8e;
+  background: rgba(224, 138, 111, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+}
+
+.registration__submit {
+  margin-top: 8px;
+  width: 100%;
+  padding: 16px;
+  font-size: 1.05rem;
+}
+
+.registration__confirmation {
+  text-align: center;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.registration__confirmation-icon {
+  color: var(--sage);
+}
+
+.registration__confirmation h2 {
+  color: var(--white);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  max-width: 560px;
+}
+
+.registration__confirmation p {
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 520px;
+}
+
+@media (max-width: 620px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,78 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 247, 239, 0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(63, 54, 38, 0.08);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 12px;
+}
+
+.site-header__logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sage-dark);
+}
+
+.logo-badge--light {
+  color: var(--white);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--brown-ink);
+  line-height: 1.15;
+}
+
+.logo-badge--light .logo-text {
+  color: var(--white);
+}
+
+.logo-text small {
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--brown-soft);
+  letter-spacing: 0.05em;
+}
+
+.logo-badge--light .logo-text small {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.logo-img {
+  height: 42px;
+  width: auto;
+}
+
+.site-header__cta {
+  font-size: 0.9rem;
+  padding: 12px 20px;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .site-header__cta {
+    font-size: 0.78rem;
+    padding: 10px 14px;
+  }
+  .logo-text {
+    font-size: 0.9rem;
+  }
+}
