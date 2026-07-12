@@ -2,7 +2,10 @@ const API_BASE = import.meta.env.VITE_API_BASE || '';
 
 function authHeaders() {
   const token = localStorage.getItem('asif_admin_token');
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return {
+    Accept: 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
 }
 
 async function handle(res) {
@@ -18,19 +21,19 @@ async function handle(res) {
 }
 
 export const api = {
-  getAssets: () => fetch(`${API_BASE}/api/assets`).then(handle),
+  getAssets: () => fetch(`${API_BASE}/api/assets`, { headers: { Accept: 'application/json' } }).then(handle),
 
   register: (payload) =>
     fetch(`${API_BASE}/api/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(payload),
     }).then(handle),
 
   login: (username, password) =>
     fetch(`${API_BASE}/api/admin/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ username, password }),
     }).then(handle),
 
