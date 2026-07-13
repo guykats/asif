@@ -24,18 +24,6 @@
   gap: 20px;
 }
 
-.registration .field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.registration .field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .registration .field label {
   font-size: 0.9rem;
   font-weight: 500;

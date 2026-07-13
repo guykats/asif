@@ -65,6 +65,23 @@ img {
   padding: 0 24px;
 }
 
+/* Shared form field layout - colors/theme are set per-context (see RegistrationForm.css, admin.css) */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field input {
+  width: 100%;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
 .section {
   padding: 72px 0;
 }
