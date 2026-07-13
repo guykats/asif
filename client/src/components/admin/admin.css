@@ -54,6 +54,8 @@
 
 .admin-login__card .field input,
 .admin-password-form .field input {
+  background: var(--white);
+  color: var(--brown-ink);
   border: 1.5px solid rgba(63, 54, 38, 0.15);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
