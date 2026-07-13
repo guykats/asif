@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CheckCircle2, Send } from 'lucide-react';
 import { api } from '../lib/api';
+import { useContent } from '../lib/ContentContext';
 import './RegistrationForm.css';
 
 const initialForm = {
@@ -32,6 +33,7 @@ function validateClientSide(form) {
 }
 
 export default function RegistrationForm() {
+  const { t } = useContent();
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
@@ -71,21 +73,18 @@ export default function RegistrationForm() {
         {submitted ? (
           <div className="registration__confirmation">
             <CheckCircle2 size={56} className="registration__confirmation-icon" />
-            <h2>תודה שנרשמתם לרשימת ההמתנה לקרוואנים בנופי נחמיה</h2>
-            <p>
-              במידה ויתפנה קרוואן, אנחנו ניצור קשר לפי סדר הרישום. אנא היערכותכם לכך שזמני
-              ההמתנה ארוכים בשל ביקוש גדול ליישוב.
-            </p>
+            <h2>{t('registration.confirmationTitle')}</h2>
+            <p>{t('registration.confirmationBody')}</p>
           </div>
         ) : (
           <>
-            <span className="eyebrow eyebrow--light">הרשמה</span>
-            <h2 className="registration__heading">רישום לרשימת המתנה לקרוואנים</h2>
-            <p className="registration__intro">כל השדות הינם שדות חובה</p>
+            <span className="eyebrow eyebrow--light">{t('registration.eyebrow')}</span>
+            <h2 className="registration__heading">{t('registration.heading')}</h2>
+            <p className="registration__intro">{t('registration.intro')}</p>
 
             <form className="registration__form" onSubmit={handleSubmit} noValidate>
               <div className="field">
-                <label htmlFor="familyName">שם משפחה</label>
+                <label htmlFor="familyName">{t('registration.field.familyName')}</label>
                 <input
                   id="familyName"
                   type="text"
@@ -98,7 +97,7 @@ export default function RegistrationForm() {
 
               <div className="field-row">
                 <div className="field">
-                  <label htmlFor="husbandName">שם פרטי (האיש)</label>
+                  <label htmlFor="husbandName">{t('registration.field.husbandName')}</label>
                   <input
                     id="husbandName"
                     type="text"
@@ -109,7 +108,7 @@ export default function RegistrationForm() {
                   {errors.husbandName && <span className="field__error">{errors.husbandName}</span>}
                 </div>
                 <div className="field">
-                  <label htmlFor="husbandPhone">טלפון (האיש)</label>
+                  <label htmlFor="husbandPhone">{t('registration.field.husbandPhone')}</label>
                   <input
                     id="husbandPhone"
                     type="tel"
@@ -124,7 +123,7 @@ export default function RegistrationForm() {
 
               <div className="field-row">
                 <div className="field">
-                  <label htmlFor="wifeName">שם פרטי (האישה)</label>
+                  <label htmlFor="wifeName">{t('registration.field.wifeName')}</label>
                   <input
                     id="wifeName"
                     type="text"
@@ -135,7 +134,7 @@ export default function RegistrationForm() {
                   {errors.wifeName && <span className="field__error">{errors.wifeName}</span>}
                 </div>
                 <div className="field">
-                  <label htmlFor="wifePhone">טלפון (האישה)</label>
+                  <label htmlFor="wifePhone">{t('registration.field.wifePhone')}</label>
                   <input
                     id="wifePhone"
                     type="tel"
@@ -150,7 +149,7 @@ export default function RegistrationForm() {
 
               <div className="field-row">
                 <div className="field">
-                  <label htmlFor="childrenCount">מספר ילדים</label>
+                  <label htmlFor="childrenCount">{t('registration.field.childrenCount')}</label>
                   <input
                     id="childrenCount"
                     type="number"
@@ -163,11 +162,11 @@ export default function RegistrationForm() {
                   {errors.childrenCount && <span className="field__error">{errors.childrenCount}</span>}
                 </div>
                 <div className="field">
-                  <label htmlFor="childrenBirthYears">שנות לידה של הילדים</label>
+                  <label htmlFor="childrenBirthYears">{t('registration.field.childrenBirthYears')}</label>
                   <input
                     id="childrenBirthYears"
                     type="text"
-                    placeholder="לדוגמה: 2015, 2018, 2021"
+                    placeholder={t('registration.field.childrenBirthYearsPlaceholder')}
                     value={form.childrenBirthYears}
                     onChange={handleChange('childrenBirthYears')}
                     aria-invalid={!!errors.childrenBirthYears}
@@ -180,7 +179,7 @@ export default function RegistrationForm() {
 
               <button type="submit" className="btn btn-primary registration__submit" disabled={submitting}>
                 <Send size={18} />
-                {submitting ? 'שולח...' : 'שליחת רישום והצטרפות לרשימה'}
+                {submitting ? 'שולח...' : t('registration.submitLabel')}
               </button>
             </form>
           </>

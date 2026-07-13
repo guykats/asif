@@ -1,39 +1,27 @@
 import { Navigation, TrendingUp, HeartHandshake } from 'lucide-react';
+import { useContent } from '../lib/ContentContext';
 import './Infographic.css';
 
 const STATS = [
-  {
-    icon: Navigation,
-    value: '6 דקות',
-    label: 'מיקום מושלם',
-    detail: 'נסיעה מאריאל, בירת השומרון',
-  },
-  {
-    icon: TrendingUp,
-    value: '40%',
-    label: 'אינטימי - אבל בצמיחה',
-    detail: 'גידול עתידי תוך שנתיים',
-  },
-  {
-    icon: HeartHandshake,
-    value: '100%',
-    label: 'איכות של אנשים',
-    detail: 'כל העשייה ביישוב - בהתנדבות',
-  },
+  { icon: Navigation, prefix: 'stat1' },
+  { icon: TrendingUp, prefix: 'stat2' },
+  { icon: HeartHandshake, prefix: 'stat3' },
 ];
 
 export default function Infographic() {
+  const { t } = useContent();
+
   return (
     <section className="section infographic">
       <div className="container infographic__grid">
-        {STATS.map(({ icon: Icon, value, label, detail }) => (
-          <div className="stat-card" key={label}>
+        {STATS.map(({ icon: Icon, prefix }) => (
+          <div className="stat-card" key={prefix}>
             <div className="stat-card__icon">
               <Icon size={28} strokeWidth={2} />
             </div>
-            <div className="stat-card__value">{value}</div>
-            <div className="stat-card__label">{label}</div>
-            <p className="stat-card__detail">{detail}</p>
+            <div className="stat-card__value">{t(`infographic.${prefix}.value`)}</div>
+            <div className="stat-card__label">{t(`infographic.${prefix}.label`)}</div>
+            <p className="stat-card__detail">{t(`infographic.${prefix}.detail`)}</p>
           </div>
         ))}
       </div>

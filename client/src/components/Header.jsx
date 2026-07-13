@@ -1,7 +1,10 @@
 import Logo from './Logo';
+import { useContent } from '../lib/ContentContext';
 import './Header.css';
 
 export default function Header() {
+  const { t } = useContent();
+
   const scrollToForm = () => {
     document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -13,7 +16,7 @@ export default function Header() {
           <Logo />
         </a>
         <button type="button" className="btn btn-primary site-header__cta" onClick={scrollToForm}>
-          רישום לרשימת המתנה לקרוואנים
+          {t('header.cta')}
         </button>
       </div>
     </header>

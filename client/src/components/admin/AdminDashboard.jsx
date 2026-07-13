@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Users, ImagePlus, KeyRound, LogOut, ExternalLink } from 'lucide-react';
+import { Users, ImagePlus, FileText, KeyRound, LogOut, ExternalLink } from 'lucide-react';
 import RegistrationsTable from './RegistrationsTable';
 import AssetsManager from './AssetsManager';
+import SiteContentEditor from './SiteContentEditor';
 import ChangePasswordForm from './ChangePasswordForm';
 import './admin.css';
 
 const TABS = [
   { key: 'registrations', label: 'נרשמים', icon: Users },
+  { key: 'content', label: 'תוכן האתר', icon: FileText },
   { key: 'assets', label: 'נכסים גרפיים', icon: ImagePlus },
   { key: 'settings', label: 'הגדרות', icon: KeyRound },
 ];
@@ -49,6 +51,7 @@ export default function AdminDashboard({ onLogout }) {
           <h1>שלום, {username}</h1>
         </header>
         {tab === 'registrations' && <RegistrationsTable />}
+        {tab === 'content' && <SiteContentEditor />}
         {tab === 'assets' && <AssetsManager />}
         {tab === 'settings' && <ChangePasswordForm />}
       </main>
