@@ -24,25 +24,25 @@
   gap: 20px;
 }
 
-.field-row {
+.registration .field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-.field {
+.registration .field {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.field label {
+.registration .field label {
   font-size: 0.9rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
 }
 
-.field input {
+.registration .field input {
   background: rgba(255, 255, 255, 0.08);
   border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-sm);
@@ -53,21 +53,21 @@
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
-.field input::placeholder {
+.registration .field input::placeholder {
   color: rgba(255, 255, 255, 0.4);
 }
 
-.field input:focus {
+.registration .field input:focus {
   outline: none;
   border-color: var(--sage);
   background: rgba(255, 255, 255, 0.12);
 }
 
-.field input[aria-invalid='true'] {
+.registration .field input[aria-invalid='true'] {
   border-color: #e08a6f;
 }
 
-.field__error {
+.registration .field__error {
   color: #f3ab8e;
   font-size: 0.82rem;
 }
