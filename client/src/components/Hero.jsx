@@ -1,9 +1,11 @@
 import { ChevronDown } from 'lucide-react';
 import { useAssets } from '../lib/AssetsContext';
+import { useContent } from '../lib/ContentContext';
 import './Hero.css';
 
 export default function Hero() {
   const { resolveUrl } = useAssets();
+  const { t } = useContent();
   const heroUrl = resolveUrl('hero');
 
   const scrollToNext = () => {
@@ -33,11 +35,9 @@ export default function Hero() {
       )}
       <div className="hero__overlay" />
       <div className="container hero__content">
-        <span className="eyebrow eyebrow--light">נופי נחמיה · אסיף</span>
-        <h1 className="hero__title">קהילה חמה בלב הארץ</h1>
-        <p className="hero__subtitle">
-          יישוב קהילתי דתי השוכן בלב השומרון ומקיים פסיפס ייחודי של קהילה, שותפות וערכיות
-        </p>
+        <span className="eyebrow eyebrow--light">{t('hero.eyebrow')}</span>
+        <h1 className="hero__title">{t('hero.title')}</h1>
+        <p className="hero__subtitle">{t('hero.subtitle')}</p>
       </div>
       <button type="button" className="hero__scroll-hint" onClick={scrollToNext} aria-label="גלילה למטה">
         <ChevronDown size={28} />

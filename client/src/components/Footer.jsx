@@ -1,8 +1,10 @@
 import { Phone, Mail } from 'lucide-react';
 import Logo from './Logo';
+import { useContent } from '../lib/ContentContext';
 import './Footer.css';
 
 export default function Footer() {
+  const { t } = useContent();
   const year = new Date().getFullYear();
 
   return (
@@ -13,19 +15,19 @@ export default function Footer() {
         </div>
 
         <div className="site-footer__contact">
-          <a href="tel:+972000000000" className="site-footer__contact-item">
+          <a href={`tel:${t('footer.phone').replace(/[^\d+]/g, '')}`} className="site-footer__contact-item">
             <Phone size={16} />
-            <span>מזכירות היישוב: 00-0000000</span>
+            <span>{t('footer.phone')}</span>
           </a>
-          <a href="mailto:info@example.org" className="site-footer__contact-item">
+          <a href={`mailto:${t('footer.email')}`} className="site-footer__contact-item">
             <Mail size={16} />
-            <span>info@example.org</span>
+            <span>{t('footer.email')}</span>
           </a>
         </div>
 
         <div className="site-footer__meta">
-          <span>נופי נחמיה © {year}</span>
-          <a href="#" onClick={(e) => e.preventDefault()}>הצהרת נגישות</a>
+          <span>{t('footer.orgName')} © {year}</span>
+          <a href="#" onClick={(e) => e.preventDefault()}>{t('footer.accessibilityLabel')}</a>
         </div>
       </div>
     </footer>

@@ -63,6 +63,15 @@ export const api = {
     }).then(handle);
   },
 
+  getContent: () => fetch(`${API_BASE}/api/content`, { headers: { Accept: 'application/json' } }).then(handle),
+
+  updateContent: (content) =>
+    fetch(`${API_BASE}/api/admin/content`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ content }),
+    }).then(handle),
+
   registrationsCsvUrl: () => `${API_BASE}/api/admin/registrations.csv`,
 };
 
